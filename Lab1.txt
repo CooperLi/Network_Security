@@ -1,0 +1,66 @@
+### Question 1
+1.a	date
+
+1.b	
+        head - output the first part of files
+        tail - output the last part of files
+        touch - change file timestamps
+        more - file perusal filter for crt viewing
+        less - opposite of more
+        man - an interface to the on-line reference manuals
+
+1.c	same as previous
+
+1.d	
+	tail -n 5 /etc/passwd
+	head -n 3 /etc/passwd
+	tail -n 3 /etc/passwd
+
+1.e	
+        ls - list directory contents
+
+
+### Question 2
+2.a	less /etc/passwd
+	No, I don't see my username in the list
+
+2.b	cut -f7 -d: /etc/passwd 
+
+2.c	cut -f7 -d: /etc/passwd | uniq
+
+2.d	cut -f7 -d: /etc/passwd | sort | uniq
+
+2.e	ls /etc/password 2 >> Practial_1.txt
+	ls: cannot access /etc/password: No such file or directory
+
+2.f	1>: Normal output
+	2>: Error MSG output
+
+2.g.1
+	ls /etc/passwddsd || echo sorry, could not find file
+	sorry, could not find file
+
+2.g.2	ls /etc/passwd && cat /etc/passwd |cut -f7 -d: | sort| uniq 
+
+2.g.3
+
+-----------------------Version 1-----------------------------
+#!/bin/bash
+
+read -p "Input File name:" fileName
+if [ -f $fileName ]
+  then
+    cat $fileName
+else
+  echo "The file you are looking to does not exist!"
+fi
+
+-----------------------Version 2-----------------------------
+#!/bin/bash
+
+if [ -f $1 ]
+  then
+    cat $1
+else
+  echo "The file you are looking to does not exist!"
+fi
