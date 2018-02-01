@@ -1,0 +1,21 @@
+### Question 3
+3.a    -rw-r--r--  1 Cooper  staff  15828 Feb  1 09:05 file.txt
+
+3.b
+mkdir testdir
+ls -ld testdir
+drwxr-xr-x  2 Cooper  staff  64 Feb  1 09:06 testdir
+
+touch testdir/file
+ls -l testdir
+total 0
+-rw-r--r--  1 Cooper  staff  0 Feb  1 09:08 file
+
+3.c
+#!/bin/sh
+if [ -f $1 ]
+then
+    cat $1
+else
+    echo "Sorry, cant find file"
+fi
