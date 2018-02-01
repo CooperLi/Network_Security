@@ -18,4 +18,52 @@ then
     cat $1
 else
     echo "Sorry, cant find file"
+Fi
+
+
+sh file.txt file.txt
+#!/bin/sh
+if [ -f $1 ]
+then
+    cat $1
+else
+    echo "Sorry, cant find file"
 fi
+
+3.d
+$ ./file.txt file.txt
+bash: ./file.txt: Permission denied
+Because the file.txt dont have execute priviledge
+$ ls -l file.txt
+-rw-r--r-- 1 k1756996 domain users 80 Feb  1 11:14 file.txt
+$ chomod u+x file.txt
+worked.
+
+3.e
+$ mv file.txt testdir
+$ ls testdir
+file
+file.txt
+
+3.f.1
+$ chmod u-r testdir
+3.f.2
+$ ls testdir
+give me nothing but blank
+
+3.f.3
+$ ./testdir/file.txt file.txt
+Sorry, cant find file
+
+3.f.4
+$ rm testdir/file.txt
+instead of remove the file.txt, I tried to add new file into testdir/ because I have 'w' permission
+$ touch testdir/haha.txt
+done
+
+3.f.5
+$ rmdir testdir
+Can only do this if tetsdir is empty. Otherwise, use 'rm -rf testdir' instead
+
+3.f.6
+
