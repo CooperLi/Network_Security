@@ -1,0 +1,233 @@
+### Question 4
+---------------------------------------------------------------------------------------
+4.a.1
+$ ifconfig
+enp0s31f6: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 10.81.55.166  netmask 255.255.255.0  broadcast 10.81.55.255
+        inet6 fe80::529a:4cff:fe49:de93  prefixlen 64  scopeid 0x20<link>
+        ether 50:9a:4c:49:de:93  txqueuelen 1000  (Ethernet)
+        RX packets 2142602  bytes 2549064830 (2.3 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 2389209  bytes 2624169208 (2.4 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+        device interrupt 20  memory 0xf7100000-f7120000  
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1  (Local Loopback)
+        RX packets 270807  bytes 901368907 (859.6 MiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 270807  bytes 901368907 (859.6 MiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:c8:e9:64  txqueuelen 1000  (Ethernet)
+        RX packets 408317  bytes 1690149927 (1.5 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 359630  bytes 1760456654 (1.6 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+vnet0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet6 fe80::fc54:ff:fe97:2afe  prefixlen 64  scopeid 0x20<link>
+        ether fe:54:00:97:2a:fe  txqueuelen 1000  (Ethernet)
+        RX packets 408320  bytes 1695866595 (1.5 GiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 1420710  bytes 1817652118 (1.6 GiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+
+---------------------------------------------------------------------------------------
+4.a.2
+ethernet interface: enp0s31f6
+loopback interface: lo
+
+---------------------------------------------------------------------------------------
+4.a.3
+When a network interface is disconnected--for example, when an Ethernet port is unplugged or Wi-Fi is turned off or not associated with an access point--no communication on that interface is possible, not even communication between your computer and itself. The loopback interface does not represent any actual hardware, but exists so applications running on your computer can always connect to servers on the same machine.
+
+This is important for troubleshooting (it can be compared to looking in a mirror). The loopback device is sometimes explained as purely a diagnostic tool. But it is also helpful when a server offering a resource you need is running on your own machine.
+
+For example, if you run a web server, you have all your web documents and could examine them file by file. You may be able to load the files in your browser too, though with server-side active content, it won't work the way it does when someone accesses it normally.
+
+So if you want to experience the same site others do, the best course is usually to connect to your own server. The loopback interface facilitates that.
+
+---------------------------------------------------------------------------------------
+4.b.1
+$ netstat -i
+Kernel Interface table
+Iface      MTU    RX-OK RX-ERR RX-DRP RX-OVR    TX-OK TX-ERR TX-DRP TX-OVR Flg
+enp0s31f  1500  4245938      0      0 0       4817752      0      0      0 BMRU
+lo       65536   328427      0      0 0        328427      0      0      0 LRU
+virbr0    1500   989738      0      0 0        877206      0      0      0 BMRU
+vnet0     1500   989741      0      0 0       3489829      0      0      0 BMRU
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         gateway         0.0.0.0         UG        0 0          0 enp0s31f6
+10.81.55.0      0.0.0.0         255.255.255.0   U         0 0          0 enp0s31f6
+192.168.122.0   0.0.0.0         255.255.255.0   U         0 0          0 virbr0
+
+---------------------------------------------------------------------------------------
+4.b.2
+$ netstat -r 
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+default         gateway         0.0.0.0         UG        0 0          0 enp0s31f6
+10.81.55.0      0.0.0.0         255.255.255.0   U         0 0          0 enp0s31f6
+192.168.122.0   0.0.0.0         255.255.255.0   U         0 0          0 virbr0
+
+$ netstat
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp        0      0 nmscde004017.nms.:55722 a23-44-101-254.de:https ESTABLISHED
+tcp        0      0 nmscde004017.nms.:56432 h185-42-223-15.rev:http TIME_WAIT  
+tcp        0      0 nmscde004017.nms.:37860 ham11s01-in-f3.1e:https ESTABLISHED
+tcp        0      0 nmscde004017.nms.:47082 104.244.43.76:https     ESTABLISHED
+tcp        0      0 localhost:rfb           localhost:51294         ESTABLISHED
+tcp        0      0 nmscde004017.nms.:51608 www.mirrorservice.:http TIME_WAIT  
+tcp        0      0 nmscde004017.nms.:38134 mozart.ee.ic.ac.uk:http TIME_WAIT  
+tcp        0      0 nmscde004017.nms.:34388 151.101.193.69:https    ESTABLISHED
+
+---------------------------------------------------------------------------------------
+4.c.1
+$ arp
+Address                  HWtype  HWaddress           Flags Mask            Iface
+gateway                  ether   00:08:e3:ff:fd:4c   C                     enp0s31f6
+nmscde004017vm.nms.kcl.  ether   52:54:00:97:2a:fe   C                     virbr0
+
+---------------------------------------------------------------------------------------
+4.c.2
+$ ip neighbour
+10.81.55.1 dev enp0s31f6 lladdr 00:08:e3:ff:fd:4c REACHABLE
+192.168.122.129 dev virbr0 lladdr 52:54:00:97:2a:fe STALE
+
+$ ip route
+default via 10.81.55.1 dev enp0s31f6 proto static metric 100 
+10.81.55.0/24 dev enp0s31f6 proto kernel scope link src 10.81.55.166 metric 100 
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 
+
+$ ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp0s31f6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP mode DEFAULT qlen 1000
+    link/ether 50:9a:4c:49:de:93 brd ff:ff:ff:ff:ff:ff
+3: virbr0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN mode DEFAULT qlen 1000
+    link/ether 52:54:00:c8:e9:64 brd ff:ff:ff:ff:ff:ff
+4: virbr0-nic: <BROADCAST,MULTICAST> mtu 1500 qdisc pfifo_fast master virbr0 state DOWN mode DEFAULT qlen 1000
+    link/ether 52:54:00:c8:e9:64 brd ff:ff:ff:ff:ff:ff
+
+---------------------------------------------------------------------------------------
+4.d.1
+$ sudo tcpdump -i enp0s31f6 
+
+16:47:10.089044 IP nmscde004017.nms.kcl.ac.uk.982 > nms-tier2.nms.kcl.ac.uk.nfs: Flags [P.], seq 2967815361:2967815593, ack 1576421355, win 15953, options [nop,nop,TS val 114525877 ecr 2574481399], length 232: NFS request xid 964733404 228 getattr fh 0,0/22
+16:47:10.089330 IP nms-tier2.nms.kcl.ac.uk.nfs > nmscde004017.nms.kcl.ac.uk.982: Flags [P.], seq 1:117, ack 232, win 49333, options [nop,nop,TS val 2574481409 ecr 114525877], length 116: NFS reply xid 964733404 reply ok 112 getattr ERROR: unk 10010
+16:47:10.089540 IP nmscde004017.nms.kcl.ac.uk.48101 > dns1.kcl.ac.uk.domain: 59477+ PTR? 228.113.73.137.in-addr.arpa. (45)
+16:47:10.090137 IP dns1.kcl.ac.uk.domain > nmscde004017.nms.kcl.ac.uk.48101: 59477* 1/0/0 PTR nms-tier2.nms.kcl.ac.uk. (82)
+16:47:10.090233 IP nmscde004017.nms.kcl.ac.uk.54908 > dns1.kcl.ac.uk.domain: 2629+ PTR? 166.55.81.10.in-addr.arpa. (43)
+16:47:10.090793 IP dns1.kcl.ac.uk.domain > nmscde004017.nms.kcl.ac.uk.54908: 2629* 1/0/0 PTR nmscde004017.nms.kcl.ac.uk. (83)
+16:47:10.090921 IP nmscde004017.nms.kcl.ac.uk.60258 > dns1.kcl.ac.uk.domain: 171+ PTR? 10.254.73.137.in-addr.arpa. (44)
+16:47:10.091319 IP dns1.kcl.ac.uk.domain > nmscde004017.nms.kcl.ac.uk.60258: 171* 1/0/0 PTR dns1.kcl.ac.uk. (72)
+16:47:10.099603 IP nmscde004017.nms.kcl.ac.uk.982 > nms-tier2.nms.kcl.ac.uk.nfs: Flags [P.], seq 232:464, ack 117, win 15953, options [nop,nop,TS val 114525887 ecr 2574481409], length 232: NFS request xid 981510620 228 getattr fh 0,0/22
+
+
+---------------------------------------------------------------------------------------
+4.d.2
+$ sudo tcpdump icmp
+$ ping www.google.com
+
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp0s31f6, link-type EN10MB (Ethernet), capture size 262144 bytes
+16:48:56.446031 IP nmscde004017.nms.kcl.ac.uk > par03s13-in-f68.1e100.net: ICMP echo request, id 29670, seq 1, length 64
+16:48:56.461798 IP par03s13-in-f68.1e100.net > nmscde004017.nms.kcl.ac.uk: ICMP echo reply, id 29670, seq 1, length 64
+16:48:57.447893 IP nmscde004017.nms.kcl.ac.uk > par03s13-in-f68.1e100.net: ICMP echo request, id 29670, seq 2, length 64
+16:48:57.463590 IP par03s13-in-f68.1e100.net > nmscde004017.nms.kcl.ac.uk: ICMP echo reply, id 29670, seq 2, length 64
+
+---------------------------------------------------------------------------------------
+4.d.3
+$ sudo tcpdump -c2 icmp
+$ ping www.google.com
+
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp0s31f6, link-type EN10MB (Ethernet), capture size 262144 bytes
+16:49:58.269033 IP nmscde004017.nms.kcl.ac.uk > ham11s01-in-f4.1e100.net: ICMP echo request, id 29805, seq 1, length 64
+16:49:58.284674 IP ham11s01-in-f4.1e100.net > nmscde004017.nms.kcl.ac.uk: ICMP echo reply, id 29805, seq 1, length 64
+2 packets captured
+2 packets received by filter
+0 packets dropped by kernel
+
+-c: count the number of packages
+
+---------------------------------------------------------------------------------------
+4.d.4
+$ sudo tcpdump -c2 icmp
+same as 4.d.3, the google's IP doesn't show in the screen.
+
+---------------------------------------------------------------------------------------
+4.d.5
+$ sudo tcpdump -n -c2 icmp
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp0s31f6, link-type EN10MB (Ethernet), capture size 262144 bytes
+16:55:18.768580 IP 10.81.55.166 > 216.58.212.78: ICMP echo request, id 32605, seq 1, length 64
+16:55:18.771563 IP 216.58.212.78 > 10.81.55.166: ICMP echo reply, id 32605, seq 1, length 64
+2 packets captured
+2 packets received by filter
+0 packets dropped by kernel
+
+can see the google's IP(216.58.212.78)
+
+---------------------------------------------------------------------------------------
+4.d.6
+$ sudo tcpdump -v 
+$ sudo tcpdump -vv
+$ sudo tcpdump -vvv
+
+---------------------------------------------------------------------------------------
+4.d.7
+$ sudo tcpdump -s 1514 -XX -n dst google.com
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on enp0s31f6, link-type EN10MB (Ethernet), capture size 262144 bytes
+16:58:14.451876 IP 10.81.55.166.52774 > 216.58.212.78.https: Flags [R.], seq 892818959, ack 157631757, win 237, options [nop,nop,TS val 0 ecr 2212221546], length 0
+	0x0000:  0008 e3ff fd4c 509a 4c49 de93 0800 4500  .....LP.LI....E.
+	0x0010:  0034 077a 4000 4006 44ca 0a51 37a6 d83a  .4.z@.@.D..Q7..:
+	0x0020:  d44e ce26 01bb 3537 560f 0965 450d 8014  .N.&..57V..eE...
+	0x0030:  00ed eea6 0000 0101 080a 0000 0000 83db  ................
+	0x0040:  d26a                                     .j
+16:58:14.451970 IP 10.81.55.166.52778 > 216.58.212.78.https: Flags [R.], seq 1210197930, ack 1144563271, win 318, options [nop,nop,TS val 0 ecr 3525939420], length 0
+	0x0000:  0008 e3ff fd4c 509a 4c49 de93 0800 4500  .....LP.LI....E.
+	0x0010:  0034 71a1 4000 4006 daa2 0a51 37a6 d83a  .4q.@.@....Q7..:
+	0x0020:  d44e ce2a 01bb 4822 27aa 4438 a647 8014  .N.*..H"'.D8.G..
+	0x0030:  013e eea6 0000 0101 080a 0000 0000 d229  .>.............)
+	0x0040:  90dc                                     ..
+16:58:20.832685 IP 10.81.55.166.52792 > 216.58.212.78.https: Flags [S], seq 2696773442, win 29200, options [mss 1460,sackOK,TS val 115196620 ecr 0,nop,wscale 7], length 0
+	0x0000:  0008 e3ff fd4c 509a 4c49 de93 0800 4500  .....LP.LI....E.
+	0x0010:  003c bd8e 4000 4006 8ead 0a51 37a6 d83a  .<..@.@....Q7..:
+	0x0020:  d44e ce38 01bb a0bd 7f42 0000 0000 a002  .N.8.....B......
+	0x0030:  7210 eeae 0000 0204 05b4 0402 080a 06dd  r...............
+	0x0040:  c2cc 0000 0000 0103 0307                 ..........
+16:58:20.835185 IP 10.81.55.166.52792 > 216.58.212.78.https: Flags [.], ack 2018590413, win 229, options [nop,nop,TS val 115196623 ecr 529894329], length 0
+	0x0000:  0008 e3ff fd4c 509a 4c49 de93 0800 4500  .....LP.LI....E.
+	0x0010:  0034 bd8f 4000 4006 8eb4 0a51 37a6 d83a  .4..@.@....Q7..:
+	0x0020:  d44e ce38 01bb a0bd 7f43 7851 3ecd 8010  .N.8.....CxQ>...
+	0x0030:  00e5 eea6 0000 0101 080a 06dd c2cf 1f95  ................
+	0x0040:  8bb9                                     ..
+16:58:20.836473 IP 10.81.55.166.52792 > 216.58.212.78.https: Flags [P.], seq 0:203, ack 1, win 229, options [nop,nop,TS val 115196624 ecr 529894329], length 203
+	0x0000:  0008 e3ff fd4c 509a 4c49 de93 0800 4500  .....LP.LI....E.
+	0x0010:  00ff bd90 4000 4006 8de8 0a51 37a6 d83a  ....@.@....Q7..:
+	0x0020:  d44e ce38 01bb a0bd 7f43 7851 3ecd 8018  .N.8.....CxQ>...
+	0x0030:  00e5 ef71 0000 0101 080a 06dd c2d0 1f95  ...q............
+	0x0040:  8bb9 1603 0100 c601 0000 c203 03d3 f36d  ...............m
+	0x0050:  100f 2024 2c7b 4d75 7202 236a c657 2209  ...$,{Mur.#j.W".
+	0x0060:  bd15 9326 aca1 69c6 0fad fc38 2900 001c  ...&..i....8)...
+	0x0070:  dada c02b c02f c02c c030 cca9 cca8 c013  ...+./.,.0......
+	0x0080:  c014 009c 009d 002f 0035 000a 0100 007d  ......./.5.....}
+	0x0090:  6a6a 0000 ff01 0001 0000 0000 1400 1200  jj..............
+	0x00a0:  000f 6170 6973 2e67 6f6f 676c 652e 636f  ..apis.google.co
+	0x00b0:  6d00 1700 0000 2300 0000 0d00 1400 1204  m.....#.........
+	0x00c0:  0308 0404 0105 0308 0505 0108 0606 0102  ................
+	0x00d0:  0100 0500 0501 0000 0000 0012 0000 0010  ................
+	0x00e0:  000e 000c 0268 3208 6874 7470 2f31 2e31  .....h2.http/1.1
+	0x00f0:  7550 0000 000b 0002 0100 000a 000a 0008  uP..............
+	0x0100:  fafa 001d 0017 0018 1a1a 0001 00         .............
+
