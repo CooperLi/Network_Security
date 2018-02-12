@@ -1,0 +1,254 @@
+### Question 1
+----------------------------------------------------------------------------
+a.
+$ man traceroute
+traceroute - print the route packets trace to network host
+
+----------------------------------------------------------------------------
+b.
+$ traceroute google.com
+traceroute to google.com (216.58.204.46), 30 hops max, 60 byte packets
+ 1  gateway (10.81.57.1)  0.215 ms  0.392 ms  0.385 ms
+ 2  192.168.80.9 (192.168.80.9)  0.155 ms  0.351 ms  0.322 ms
+ 3  192.168.80.1 (192.168.80.1)  0.410 ms  0.416 ms  0.402 ms
+ 4  192.168.210.2 (192.168.210.2)  0.509 ms  0.465 ms  0.479 ms
+ 5  192.168.210.6 (192.168.210.6)  0.672 ms  0.685 ms  0.659 ms
+ 6  xe-5-0-0.londpg-ban1.ja.net (146.97.137.37)  0.950 ms  1.010 ms  1.003 ms
+ 7  ae26.londpg-sbr2.ja.net (146.97.35.233)  1.334 ms  1.286 ms  1.402 ms
+ 8  ae29.londhx-sbr1.ja.net (146.97.33.1)  1.598 ms  1.590 ms  1.614 ms
+ 9  193.62.157.22 (193.62.157.22)  1.891 ms  1.631 ms  1.621 ms
+10  108.170.246.129 (108.170.246.129)  1.650 ms  1.982 ms *
+11  108.170.238.117 (108.170.238.117)  1.662 ms 108.170.238.119 (108.170.238.119)  1.814 ms  1.682 ms
+12  lhr25s12-in-f14.1e100.net (216.58.204.46)  1.542 ms  1.583 ms  1.638 ms
+
+$ traceroute calcium.dcs.kcl.ac.uk
+traceroute to calcium.dcs.kcl.ac.uk (137.73.8.9), 30 hops max, 60 byte packets
+ 1  gateway (10.81.57.1)  0.158 ms  0.314 ms  0.295 ms
+ 2  192.168.80.9 (192.168.80.9)  0.153 ms  0.346 ms  0.337 ms
+ 3  192.168.80.1 (192.168.80.1)  0.334 ms  0.316 ms  0.342 ms
+ 4  192.168.100.2 (192.168.100.2)  3.513 ms  3.506 ms  3.552 ms
+ 5  * * *
+ 6  * * *
+ 7  * * *
+ 8  * * *
+ 9  * * *
+10  * * *
+
+----------------------------------------------------------------------------
+c/d/e.
+$ telnet route-server.ip.tiscali.net
+"to find the real ip address(instead of using ifconfig), we can use 'curl ipinfo.io'"
+RS_AS3303>show ip bgp 159.92.238.44
+
+BGP routing table entry for 159.92.0.0/16, version 14338752
+BGP Bestpath: deterministic-med
+Paths: (1 available, no best path)
+  Not advertised to any peer
+  Refresh Epoch 1
+  (65000) 786
+    138.187.128.71 (inaccessible) from 193.247.171.25 (138.187.128.83)
+      Origin IGP, metric 550200, localpref 300, valid, confed-external
+      Community: 3303:1004 3303:1006 3303:1030 3303:3050
+
+----------------------------------------------------------------------------
+### Question 2
+a. http://whois.icann.org/en/primer
+
+----------------------------------------------------------------------------
+b. https://www.ripe.net/data-tools/db/faq
+
+----------------------------------------------------------------------------
+c. 
+$ curl cip.cc
+$ curl ipinfo.io
+$ curl ip.cn
+$ curl ifconfig.me
+
+----------------------------------------------------------------------------
+d. 
+$ whois 159.92.238.44
+
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/whois_tou.html
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/public/whoisinaccuracy/index.xhtml
+#
+
+
+#
+# The following results may also be obtained via:
+# https://whois.arin.net/rest/nets;q=159.92.238.44?showDetails=true&showARIN=false&showNonArinTopLevelNet=false&ext=netref2
+#
+
+NetRange:       159.92.0.0 - 159.93.255.255
+CIDR:           159.92.0.0/15
+NetName:        RIPE-ERX-159-92-0-0
+NetHandle:      NET-159-92-0-0-1
+Parent:         NET159 (NET-159-0-0-0-0)
+NetType:        Early Registrations, Transferred to RIPE NCC
+OriginAS:       
+Organization:   RIPE Network Coordination Centre (RIPE)
+RegDate:        2003-10-29
+Updated:        2003-10-29
+Comment:        These addresses have been further assigned to users in
+Comment:        the RIPE NCC region.  Contact information can be found in
+Comment:        the RIPE database at http://www.ripe.net/whois
+Ref:            https://whois.arin.net/rest/net/NET-159-92-0-0-1
+
+ResourceLink:  https://apps.db.ripe.net/search/query.html
+ResourceLink:  whois.ripe.net
+
+OrgName:        RIPE Network Coordination Centre
+OrgId:          RIPE
+Address:        P.O. Box 10096
+City:           Amsterdam
+StateProv:      
+PostalCode:     1001EB
+Country:        NL
+RegDate:        
+Updated:        2013-07-29
+Ref:            https://whois.arin.net/rest/org/RIPE
+
+ReferralServer:  whois://whois.ripe.net
+ResourceLink:  https://apps.db.ripe.net/search/query.html
+
+OrgAbuseHandle: ABUSE3850-ARIN
+OrgAbuseName:   Abuse Contact
+OrgAbusePhone:  +31205354444 
+OrgAbuseEmail:  abuse@ripe.net
+OrgAbuseRef:    https://whois.arin.net/rest/poc/ABUSE3850-ARIN
+
+OrgTechHandle: RNO29-ARIN
+OrgTechName:   RIPE NCC Operations
+OrgTechPhone:  +31 20 535 4444 
+OrgTechEmail:  hostmaster@ripe.net
+OrgTechRef:    https://whois.arin.net/rest/poc/RNO29-ARIN
+
+
+#
+# ARIN WHOIS data and services are subject to the Terms of Use
+# available at: https://www.arin.net/whois_tou.html
+#
+# If you see inaccuracies in the results, please report at
+# https://www.arin.net/public/whoisinaccuracy/index.xhtml
+#
+
+
+
+Found a referral to whois.ripe.net.
+
+% This is the RIPE Database query service.
+% The objects are in RPSL format.
+%
+% The RIPE Database is subject to Terms and Conditions.
+% See http://www.ripe.net/db/support/db-terms-conditions.pdf
+
+% Note: this output has been filtered.
+%       To receive output for a database update, use the "-B" flag.
+
+% Information related to '159.92.0.0 - 159.92.255.255'
+
+% No abuse contact registered for 159.92.0.0 - 159.92.255.255
+
+inetnum:        159.92.0.0 - 159.92.255.255
+netname:        UMDS-LONDON
+descr:          UMDS, London
+descr:          King's College London
+country:        GB
+admin-c:        MDP174-RIPE
+tech-c:         MDP174-RIPE
+status:         LEGACY
+remarks:        For information on "status:" attribute read https://www.ripe.net/data-tools/db/faq/faq-status-values-legacy-resources
+mnt-by:         JANET-HOSTMASTER
+created:        1970-01-01T00:00:00Z
+last-modified:  2015-05-05T02:09:20Z
+source:         RIPE
+
+person:         Miron du Plessis
+address:        Information Systems Department
+address:        Strand
+address:        London
+address:        WC2R 2LS
+address:        United Kingdom
+phone:          +44 207 848 1618
+fax-no:         +44 207 848 1777
+nic-hdl:        MDP174-RIPE
+mnt-by:         JANET-HOSTMASTER
+created:        2006-06-08T09:39:45Z
+last-modified:  2006-06-08T09:39:45Z
+source:         RIPE # Filtered
+
+% Information related to '159.92.0.0/16AS786'
+
+route:          159.92.0.0/16
+descr:          UMDS
+descr:          Academic Computer Unit
+descr:          Floor 17
+descr:          Guy's Tower
+descr:          Guy's Hospital
+descr:          London SE1 9RT
+descr:          UNITED KINGDOM
+origin:         AS786
+mnt-by:         JIPS-NOSC
+created:        1970-01-01T00:00:00Z
+last-modified:  2001-09-22T09:32:02Z
+source:         RIPE
+
+% This query was served by the RIPE Database Query Service version 1.90 (BLAARKOP)
+
+----------------------------------------------------------------------------
+### Question 3
+a. https:..danielmiessler.com/study/dns/
+
+----------------------------------------------------------------------------
+b. 
+$ dig
+       dig - DNS lookup utility
+
+----------------------------------------------------------------------------
+c. https://www.madboa.com/geek/dig/
+$ dig outlook.com
+
+
+; <<>> DiG 9.9.4-RedHat-9.9.4-51.el7_4.2 <<>> outlook.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 3561
+;; flags: qr rd ra; QUERY: 1, ANSWER: 8, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;outlook.com.			IN	A
+
+;; ANSWER SECTION:
+outlook.com.		6	IN	A	40.97.128.194
+outlook.com.		6	IN	A	40.97.148.226
+outlook.com.		6	IN	A	40.97.161.50
+outlook.com.		6	IN	A	40.97.164.146
+outlook.com.		6	IN	A	40.97.153.146
+outlook.com.		6	IN	A	40.97.156.114
+outlook.com.		6	IN	A	40.97.160.2
+outlook.com.		6	IN	A	40.97.116.82
+
+;; Query time: 0 msec
+;; SERVER: 137.73.254.10#53(137.73.254.10)
+;; WHEN: Mon Feb 12 14:51:43 GMT 2018
+;; MSG SIZE  rcvd: 168
+
+----------------------------------------------------------------------------
+d. http://unixwiz.net/techtips/iguide-kaminsky-dns-vuln.thml
+
+----------------------------------------------------------------------------
+### Question 4
+http://bgp.he.net
+Welcome to the Hurricane Electric BGP Toolkit. 
+
+You are visiting from 159.92.238.44 United Kingdom
+Announced as 159.92.0.0/16 (UMDS, London) United Kingdom
+Your ISP is AS786 (Jisc Services Limited) United Kingdom
+
+AS number is the ISP code
